@@ -6,11 +6,19 @@
 const cells    = document.querySelectorAll('.cell');
 const status   = document.getElementById('status');
 const restartBtn     = document.getElementById('restart');
+const scoreXEl = document.getElementById('score-x');
+const scoreOEl = document.getElementById('score-o');
 
 let state = createInitialState();
+let scoreX = 0, scoreO = 0;
 
 // Maps logical symbols (X, O) to display emojis
 const SYMBOL_MAP = { X: '🐱', O: '🐶' };
+
+function updateScoreDisplay() {
+  scoreXEl.textContent = scoreX;
+  scoreOEl.textContent = scoreO;
+}
 
 function render() {
   cells.forEach((cell, i) => {
@@ -42,6 +50,8 @@ function handleClick(e) {
   if (result) {
     state.gameOver = true;
     if (result.winner) {
+      if (result.winner === 'X') { scoreX++; } else { scoreO++; }
+      updateScoreDisplay();
       result.combo.forEach(i => cells[i].classList.add('winning'));
       setStatus(`${SYMBOL_MAP[result.winner]} wins!`, 'win');
     } else {
