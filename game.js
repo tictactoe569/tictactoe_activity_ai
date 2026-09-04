@@ -18,6 +18,26 @@ function createInitialState() {
 }
 
 /**
+ * Returns the initial score state.
+ */
+function createInitialScore() {
+  return { cat: 0, dog: 0 };
+}
+
+/**
+ * Returns a new score object with the winner's count incremented.
+ * @param {{ cat: number, dog: number }} score
+ * @param {'🐱'|'🐶'} winner
+ * @returns {{ cat: number, dog: number }}
+ */
+function incrementScore(score, winner) {
+  const next = { ...score };
+  if (winner === '🐱') next.cat += 1;
+  else if (winner === '🐶') next.dog += 1;
+  return next;
+}
+
+/**
  * Returns the next player given the current one.
  * @param {'🐱'|'🐶'} current
  * @returns {'🐱'|'🐶'}
@@ -62,5 +82,5 @@ function checkWinner(board) {
 
 // Allow require() in Node.js (Jest) while remaining a plain script in the browser.
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { WINNING_COMBOS, createInitialState, getNextPlayer, applyMove, checkWinner };
+  module.exports = { WINNING_COMBOS, createInitialState, createInitialScore, incrementScore, getNextPlayer, applyMove, checkWinner };
 }
