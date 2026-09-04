@@ -12,7 +12,9 @@ let state = createInitialState();
 function render() {
   cells.forEach((cell, i) => {
     cell.textContent = state.board[i];
-    cell.className   = 'cell' + (state.board[i] ? ` ${state.board[i].toLowerCase()}` : '');
+    const symbol = state.board[i];
+    const cls = symbol === '🐱' ? 'cat' : symbol === '🐶' ? 'dog' : '';
+    cell.className = 'cell' + (cls ? ` ${cls}` : '');
     cell.disabled    = state.board[i] !== '' || state.gameOver;
   });
 }

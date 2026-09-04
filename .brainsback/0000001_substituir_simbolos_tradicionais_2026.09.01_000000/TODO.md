@@ -6,13 +6,13 @@
 
 ## The Problem
 _One or two sentences on what we're solving._
-
+Trocar X por 🐱 e O por 🐶
 ## Steps
 - [ ] 
 
 
 ## Success Looks Like
-- [ ] 
+- [X e O não aparecem em momento algum do jogo.] 
 
 ## Notes
 - [ ] 

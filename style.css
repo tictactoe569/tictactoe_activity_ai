@@ -125,11 +125,11 @@ h1 {
   cursor: default;
 }
 
-.cell.x {
+.cell.cat {
   color: #f97316;
 }
 
-.cell.o {
+.cell.dog {
   color: #38bdf8;
 }
 
