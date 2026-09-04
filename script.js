@@ -6,8 +6,11 @@
 const cells    = document.querySelectorAll('.cell');
 const status   = document.getElementById('status');
 const restartBtn     = document.getElementById('restart');
+const scoreX   = document.getElementById('score-x');
+const scoreO   = document.getElementById('score-o');
 
 let state = createInitialState();
+let scores = { X: 0, O: 0 };
 
 const PLAYER_EMOJI = { X: '🐱', O: '🐶' };
 
@@ -43,6 +46,9 @@ function handleClick(e) {
     state.gameOver = true;
     if (result.winner) {
       result.combo.forEach(i => cells[i].classList.add('winning'));
+      scores[result.winner]++;
+      scoreX.textContent = scores.X;
+      scoreO.textContent = scores.O;
       setStatus(`Player ${PLAYER_EMOJI[result.winner]} wins!`, 'win');
     } else {
       setStatus("It's a draw!", 'draw');
