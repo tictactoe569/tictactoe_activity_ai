@@ -12,25 +12,25 @@ const WINNING_COMBOS = [
 function createInitialState() {
   return {
     board:   Array(9).fill(''),
-    current: '🐱',
+    current: 'X',
     gameOver: false,
   };
 }
 
 /**
  * Returns the next player given the current one.
- * @param {'🐱'|'🐶'} current
- * @returns {'🐱'|'🐶'}
+ * @param {'X'|'O'} current
+ * @returns {'X'|'O'}
  */
 function getNextPlayer(current) {
-  return current === '🐱' ? '🐶' : '🐱';
+  return current === 'X' ? 'O' : 'X';
 }
 
 /**
  * Returns a new board with the move applied, or null if the move is invalid.
  * @param {string[]} board
  * @param {number}   index  0-8
- * @param {'🐱'|'🐶'} player
+ * @param {'X'|'O'} player
  * @returns {string[]|null}
  */
 function applyMove(board, index, player) {
@@ -45,7 +45,7 @@ function applyMove(board, index, player) {
  * Checks the board for a winner or draw.
  * @param {string[]} board
  * @returns {{ winner: string, combo: number[] }|{ winner: null, combo: [] }|null}
- *   - Object with winner ('🐱'|'🐶') and winning combo indices if someone won.
+ *   - Object with winner ('X'|'O') and winning combo indices if someone won.
  *   - Object with winner null and empty combo if the board is full (draw).
  *   - null if the game is still in progress.
  */
