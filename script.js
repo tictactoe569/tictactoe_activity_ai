@@ -11,7 +11,8 @@ let state = createInitialState();
 
 function render() {
   cells.forEach((cell, i) => {
-    cell.textContent = state.board[i];
+    const symbol = state.board[i] === 'X' ? '🐱' : state.board[i] === 'O' ? '🐶' : '';
+    cell.textContent = symbol;
     cell.className   = 'cell' + (state.board[i] ? ` ${state.board[i].toLowerCase()}` : '');
     cell.disabled    = state.board[i] !== '' || state.gameOver;
   });
@@ -40,7 +41,8 @@ function handleClick(e) {
     state.gameOver = true;
     if (result.winner) {
       result.combo.forEach(i => cells[i].classList.add('winning'));
-      setStatus(`Player ${result.winner} wins!`, 'win');
+      const winnerEmoji = result.winner === 'X' ? '🐱' : '🐶';
+      setStatus(`Player ${winnerEmoji} wins!`, 'win');
     } else {
       setStatus("It's a draw!", 'draw');
     }
@@ -50,13 +52,15 @@ function handleClick(e) {
   }
 
   state.current = getNextPlayer(state.current);
-  setStatus(`Player ${state.current}'s turn`);
+  const emoji = state.current === 'X' ? '🐱' : '🐶';
+  setStatus(`Player ${emoji}'s turn`);
 }
 
 function restartGame() {
   state = createInitialState();
   render();
-  setStatus(`Player ${state.current}'s turn`);
+  const emoji = state.current === 'X' ? '🐱' : '🐶';
+  setStatus(`Player ${emoji}'s turn`);
 }
 
 cells.forEach(cell => cell.addEventListener('click', handleClick));
@@ -64,4 +68,5 @@ restartBtn.addEventListener('click', restartGame);
 
 // Initial render
 render();
-setStatus(`Player ${state.current}'s turn`);
+const initialEmoji = state.current === 'X' ? '🐱' : '🐶';
+setStatus(`Player ${initialEmoji}'s turn`);
