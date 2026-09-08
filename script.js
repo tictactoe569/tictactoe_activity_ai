@@ -6,8 +6,11 @@
 const cells    = document.querySelectorAll('.cell');
 const status   = document.getElementById('status');
 const restartBtn     = document.getElementById('restart');
+const scoreCat = document.getElementById('score-cat');
+const scoreDog = document.getElementById('score-dog');
 
 let state = createInitialState();
+let scores = { cat: 0, dog: 0 };
 
 function render() {
   cells.forEach((cell, i) => {
@@ -42,6 +45,14 @@ function handleClick(e) {
     if (result.winner) {
       result.combo.forEach(i => cells[i].classList.add('winning'));
       const winnerEmoji = result.winner === 'X' ? '🐱' : '🐶';
+      // Update score
+      if (result.winner === 'X') {
+        scores.cat++;
+        scoreCat.textContent = scores.cat;
+      } else {
+        scores.dog++;
+        scoreDog.textContent = scores.dog;
+      }
       setStatus(`Player ${winnerEmoji} wins!`, 'win');
     } else {
       setStatus("It's a draw!", 'draw');
