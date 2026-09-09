@@ -3,3 +3,9 @@ Vamos fazendo devagar para eu poder testar enquanto fazemos. Quero que primeiro 
 Após eu dar o ok e EU subir as changes, implementaremos a logica por tras. 
 
 NAO INVENTE NADA. quero que você me pergunte caso tenha duvidas ou prcise de contexto.
+
+
+Segundo prompt
+
+Perfeito! Ficou otimo. Agora quero que enquanto eu nao fechar a aplicacao o placar funcione contabilizando as derrotas e vitorias. Nao é necessario persistir a memoria caso alguem feche o jogo.
+Continue me perguntando caso ache necessario. 

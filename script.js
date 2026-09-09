@@ -6,12 +6,20 @@
 const cells    = document.querySelectorAll('.cell');
 const status   = document.getElementById('status');
 const restartBtn     = document.getElementById('restart');
+const scoreCat = document.getElementById('score-cat');
+const scoreDog = document.getElementById('score-dog');
 
 // Map internal player tokens ('X'/'O') to display emojis.
 // Game logic (game.js) keeps using 'X'/'O'; only the UI display changes.
 const EMOJI = { X: '🐱', O: '🐶' };
 
 let state = createInitialState();
+let scores = { X: 0, O: 0 };
+
+function updateScoreDisplay() {
+  scoreCat.textContent = scores.X;
+  scoreDog.textContent = scores.O;
+}
 
 function render() {
   cells.forEach((cell, i) => {
@@ -44,6 +52,8 @@ function handleClick(e) {
   if (result) {
     state.gameOver = true;
     if (result.winner) {
+      scores[result.winner]++;
+      updateScoreDisplay();
       result.combo.forEach(i => cells[i].classList.add('winning'));
       setStatus(`Player ${EMOJI[result.winner]} wins!`, 'win');
     } else {
