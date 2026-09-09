@@ -7,13 +7,18 @@ const cells    = document.querySelectorAll('.cell');
 const status   = document.getElementById('status');
 const restartBtn     = document.getElementById('restart');
 
+// Map internal player tokens ('X'/'O') to display emojis.
+// Game logic (game.js) keeps using 'X'/'O'; only the UI display changes.
+const EMOJI = { X: '🐱', O: '🐶' };
+
 let state = createInitialState();
 
 function render() {
   cells.forEach((cell, i) => {
-    cell.textContent = state.board[i];
-    cell.className   = 'cell' + (state.board[i] ? ` ${state.board[i].toLowerCase()}` : '');
-    cell.disabled    = state.board[i] !== '' || state.gameOver;
+    const mark = state.board[i];
+    cell.textContent = mark ? EMOJI[mark] : '';
+    cell.className   = 'cell' + (mark ? ` ${mark.toLowerCase()}` : '');
+    cell.disabled    = mark !== '' || state.gameOver;
   });
 }
 
@@ -40,7 +45,7 @@ function handleClick(e) {
     state.gameOver = true;
     if (result.winner) {
       result.combo.forEach(i => cells[i].classList.add('winning'));
-      setStatus(`Player ${result.winner} wins!`, 'win');
+      setStatus(`Player ${EMOJI[result.winner]} wins!`, 'win');
     } else {
       setStatus("It's a draw!", 'draw');
     }
@@ -50,13 +55,13 @@ function handleClick(e) {
   }
 
   state.current = getNextPlayer(state.current);
-  setStatus(`Player ${state.current}'s turn`);
+  setStatus(`Player ${EMOJI[state.current]}'s turn`);
 }
 
 function restartGame() {
   state = createInitialState();
   render();
-  setStatus(`Player ${state.current}'s turn`);
+  setStatus(`Player ${EMOJI[state.current]}'s turn`);
 }
 
 cells.forEach(cell => cell.addEventListener('click', handleClick));
@@ -64,4 +69,4 @@ restartBtn.addEventListener('click', restartGame);
 
 // Initial render
 render();
-setStatus(`Player ${state.current}'s turn`);
+setStatus(`Player ${EMOJI[state.current]}'s turn`);
