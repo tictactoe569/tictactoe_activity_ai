@@ -6,14 +6,24 @@
 const cells    = document.querySelectorAll('.cell');
 const status   = document.getElementById('status');
 const restartBtn     = document.getElementById('restart');
+const scoreCat = document.getElementById('scoreCat');
+const scoreDog = document.getElementById('scoreDog');
 
 let state = createInitialState();
+let score = { cat: 0, dog: 0 };
+
+function updateScoreDisplay() {
+  scoreCat.textContent = score.cat;
+  scoreDog.textContent = score.dog;
+}
 
 function render() {
   cells.forEach((cell, i) => {
-    cell.textContent = state.board[i];
-    cell.className   = 'cell' + (state.board[i] ? ` ${state.board[i].toLowerCase()}` : '');
-    cell.disabled    = state.board[i] !== '' || state.gameOver;
+    const symbol = state.board[i];
+    cell.textContent = symbol;
+    const playerClass = symbol === '🐱' ? 'x' : symbol === '🐶' ? 'o' : '';
+    cell.className   = 'cell' + (playerClass ? ` ${playerClass}` : '');
+    cell.disabled    = symbol !== '' || state.gameOver;
   });
 }
 
@@ -41,6 +51,10 @@ function handleClick(e) {
     if (result.winner) {
       result.combo.forEach(i => cells[i].classList.add('winning'));
       setStatus(`Player ${result.winner} wins!`, 'win');
+      // Update score
+      if (result.winner === '🐱') score.cat++;
+      else score.dog++;
+      updateScoreDisplay();
     } else {
       setStatus("It's a draw!", 'draw');
     }
