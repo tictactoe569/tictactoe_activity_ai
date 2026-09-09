@@ -9,3 +9,6 @@ Segundo prompt
 
 Perfeito! Ficou otimo. Agora quero que enquanto eu nao fechar a aplicacao o placar funcione contabilizando as derrotas e vitorias. Nao é necessario persistir a memoria caso alguem feche o jogo.
 Continue me perguntando caso ache necessario. 
+
+
+Todos os testes passaram e o placar faz exatamente oq é pedido. 
