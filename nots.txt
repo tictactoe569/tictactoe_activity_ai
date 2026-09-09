@@ -1,0 +1,5 @@
+Chat, agora quero realizar um um sistema de pontuação**, contabilizando e exibindo as vitórias do Gato (🐱) e do Cachorro (🐶).
+Vamos fazendo devagar para eu poder testar enquanto fazemos. Quero que primeiro você faca a UI do placar. Irei testar as modificações e ai podemos continuar.
+Após eu dar o ok e EU subir as changes, implementaremos a logica por tras. 
+
+NAO INVENTE NADA. quero que você me pergunte caso tenha duvidas ou prcise de contexto.
