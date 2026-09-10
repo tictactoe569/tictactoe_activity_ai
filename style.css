@@ -40,6 +40,10 @@ h1 {
   justify-content: center;
 }
 
+.scoreboard[hidden] {
+  display: none;
+}
+
 .score {
   display: flex;
   flex-direction: column;

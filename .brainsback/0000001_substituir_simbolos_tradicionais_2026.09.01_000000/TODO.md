@@ -19,7 +19,17 @@ O jogo precisa trocar as letras X e O por cachorro e gato
 -  jogo mostra gato e cachorro, testes passam, navegador exibe corretamente 
 
 ## Notes
-- [ ] 
+- Na tarefa 2 eu fiz uma refatoracao da tarefa 1
+
+antes
+setStatus(`${result.winner === CAT ? '🐱' : '🐶'} wins!`, 'win');
+setStatus(`${state.current === CAT ? '🐱' : '🐶'}'s turn`);
+
+
+depois
+setStatus(`${result.winner} wins!`, 'win');
+setStatus(`${state.current}'s turn`);
+
 
 ---
 **⚠️ HUMAN ONLY**: This file is your strategic space. AI agents must not edit it.

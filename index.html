@@ -30,6 +30,21 @@
 
     <div class="status" id="status">🐱's turn</div>
 
+    <div class="scoreboard" id="scoreboard" hidden>
+      <div class="score">
+        <span class="score-label cat-color">🐱 Gato</span>
+        <span class="score-value" id="score-cat">0</span>
+      </div>
+      <div class="score">
+        <span class="score-label">🤝 Empates</span>
+        <span class="score-value" id="score-draws">0</span>
+      </div>
+      <div class="score">
+        <span class="score-label dog-color">🐶 Cachorro</span>
+        <span class="score-value" id="score-dog">0</span>
+      </div>
+    </div>
+
     <div class="board" id="board">
       <button class="cell" data-index="0"></button>
       <button class="cell" data-index="1"></button>
@@ -44,6 +59,8 @@
 
     <div class="actions">
       <button class="btn" id="restart">New Game</button>
+      <button class="btn btn-secondary" id="start-championship">Iniciar Campeonato</button>
+      <button class="btn btn-secondary" id="end-championship" hidden>Encerrar Campeonato</button>
     </div>
   </div>
 

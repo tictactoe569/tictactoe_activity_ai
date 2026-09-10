@@ -63,7 +63,27 @@ function checkWinner(board) {
   return null;
 }
 
+/**
+ * Creates the initial score state for a championship.
+ * @returns {{ cat: number, dog: number, draws: number }}
+ */
+function createScoreState() {
+  return { cat: 0, dog: 0, draws: 0 };
+}
+
+/**
+ * Updates the score given the winner symbol.
+ * @param {{ cat: number, dog: number, draws: number }} score
+ * @param {CAT|DOG|null} winner  Symbol of the winner, or null for a draw.
+ * @returns {{ cat: number, dog: number, draws: number }}  The updated score.
+ */
+function updateScore(score, winner) {
+  if (winner === CAT) return { ...score, cat: score.cat + 1 };
+  if (winner === DOG) return { ...score, dog: score.dog + 1 };
+  return { ...score, draws: score.draws + 1 };
+}
+
 // Allow require() in Node.js (Jest) while remaining a plain script in the browser.
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { CAT, DOG, WINNING_COMBOS, createInitialState, getNextPlayer, applyMove, checkWinner };
+  module.exports = { CAT, DOG, WINNING_COMBOS, createInitialState, getNextPlayer, applyMove, checkWinner, createScoreState, updateScore };
 }
