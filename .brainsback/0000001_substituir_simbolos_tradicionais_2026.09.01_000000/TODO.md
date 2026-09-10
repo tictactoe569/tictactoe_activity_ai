@@ -5,14 +5,18 @@
 **Hard rule**: AI agents must not edit this file and must not draft paste-ready content for it.
 
 ## The Problem
-_One or two sentences on what we're solving._
+O jogo precisa trocar as letras X e O por cachorro e gato
 
 ## Steps
-- [ ] 
+- Atualizar script.js: mapear CAT = 'cat' e DOG = 'dog' (substituir toLowerCase())
+- Atualizar index.html: mudar "Player X's turn" para "🐱's turn" (ou "Cat's turn")
+- Atualizar style.css: criar classes .cat e .dog (remover .x e .o)
+- Atualizar game.test.js: usar constantes CAT/DOG
+
 
 
 ## Success Looks Like
-- [ ] 
+-  jogo mostra gato e cachorro, testes passam, navegador exibe corretamente 
 
 ## Notes
 - [ ] 

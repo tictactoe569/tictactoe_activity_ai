@@ -1,18 +1,20 @@
 'use strict';
 
-// WINNING_COMBOS, checkWinner, getNextPlayer, applyMove, createInitialState
+// WINNING_COMBOS, checkWinner, getNextPlayer, applyMove, createInitialState, CAT, DOG
 // are provided by game.js, loaded before this script.
 
 const cells    = document.querySelectorAll('.cell');
 const status   = document.getElementById('status');
 const restartBtn     = document.getElementById('restart');
 
+const symbolClass = { [CAT]: 'cat', [DOG]: 'dog' };
+
 let state = createInitialState();
 
 function render() {
   cells.forEach((cell, i) => {
     cell.textContent = state.board[i];
-    cell.className   = 'cell' + (state.board[i] ? ` ${state.board[i].toLowerCase()}` : '');
+    cell.className   = 'cell' + (state.board[i] ? ` ${symbolClass[state.board[i]]}` : '');
     cell.disabled    = state.board[i] !== '' || state.gameOver;
   });
 }
@@ -40,7 +42,7 @@ function handleClick(e) {
     state.gameOver = true;
     if (result.winner) {
       result.combo.forEach(i => cells[i].classList.add('winning'));
-      setStatus(`Player ${result.winner} wins!`, 'win');
+      setStatus(`${result.winner === CAT ? '🐱' : '🐶'} wins!`, 'win');
     } else {
       setStatus("It's a draw!", 'draw');
     }
@@ -50,13 +52,13 @@ function handleClick(e) {
   }
 
   state.current = getNextPlayer(state.current);
-  setStatus(`Player ${state.current}'s turn`);
+  setStatus(`${state.current === CAT ? '🐱' : '🐶'}'s turn`);
 }
 
 function restartGame() {
   state = createInitialState();
   render();
-  setStatus(`Player ${state.current}'s turn`);
+  setStatus(`🐱's turn`);
 }
 
 cells.forEach(cell => cell.addEventListener('click', handleClick));
@@ -64,4 +66,4 @@ restartBtn.addEventListener('click', restartGame);
 
 // Initial render
 render();
-setStatus(`Player ${state.current}'s turn`);
+setStatus(`🐱's turn`);

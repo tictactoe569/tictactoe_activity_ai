@@ -1,5 +1,8 @@
 'use strict';
 
+const CAT = '🐱';
+const DOG = '🐶';
+
 const WINNING_COMBOS = [
   [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
   [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
@@ -12,25 +15,25 @@ const WINNING_COMBOS = [
 function createInitialState() {
   return {
     board:   Array(9).fill(''),
-    current: 'X',
+    current: CAT,
     gameOver: false,
   };
 }
 
 /**
  * Returns the next player given the current one.
- * @param {'X'|'O'} current
- * @returns {'X'|'O'}
+ * @param {CAT|DOG} current
+ * @returns {CAT|DOG}
  */
 function getNextPlayer(current) {
-  return current === 'X' ? 'O' : 'X';
+  return current === CAT ? DOG : CAT;
 }
 
 /**
  * Returns a new board with the move applied, or null if the move is invalid.
  * @param {string[]} board
  * @param {number}   index  0-8
- * @param {'X'|'O'} player
+ * @param {CAT|DOG} player
  * @returns {string[]|null}
  */
 function applyMove(board, index, player) {
@@ -45,7 +48,7 @@ function applyMove(board, index, player) {
  * Checks the board for a winner or draw.
  * @param {string[]} board
  * @returns {{ winner: string, combo: number[] }|{ winner: null, combo: [] }|null}
- *   - Object with winner ('X'|'O') and winning combo indices if someone won.
+ *   - Object with winner (CAT|DOG) and winning combo indices if someone won.
  *   - Object with winner null and empty combo if the board is full (draw).
  *   - null if the game is still in progress.
  */
@@ -62,5 +65,5 @@ function checkWinner(board) {
 
 // Allow require() in Node.js (Jest) while remaining a plain script in the browser.
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { WINNING_COMBOS, createInitialState, getNextPlayer, applyMove, checkWinner };
+  module.exports = { CAT, DOG, WINNING_COMBOS, createInitialState, getNextPlayer, applyMove, checkWinner };
 }
