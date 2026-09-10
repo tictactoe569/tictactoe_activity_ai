@@ -45,6 +45,28 @@
     <div class="actions">
       <button class="btn" id="restart">New Game</button>
     </div>
+
+    <!-- Scoreboard -->
+    <div class="scoreboard hidden" id="scoreboard">
+      <div class="score">
+        <span class="score-label cat-color">🐱 Cat</span>
+        <span class="score-value" id="score-cat">0</span>
+      </div>
+      <div class="score">
+        <span class="score-label dog-color">🐶 Dog</span>
+        <span class="score-value" id="score-dog">0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mode selection modal (shown before the first game) -->
+  <div class="modal-overlay" id="mode-modal">
+    <div class="modal">
+      <h2>Como você quer jogar?</h2>
+      <p class="modal-hint">Escolha o modo antes de começar.</p>
+      <button class="btn btn-primary" id="btn-championship">🏆 Iniciar Campeonato</button>
+      <button class="btn btn-secondary" id="btn-freeplay">Jogar Livre (sem placar)</button>
+    </div>
   </div>
 
   <script src="game.js"></script>

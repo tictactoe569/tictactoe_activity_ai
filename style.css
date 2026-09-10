@@ -58,11 +58,11 @@ h1 {
   color: #94a3b8;
 }
 
-.score-label.x-color {
+.score-label.cat-color {
   color: #f97316;
 }
 
-.score-label.o-color {
+.score-label.dog-color {
   color: #38bdf8;
 }
 
@@ -154,10 +154,66 @@ h1 {
   100% { transform: scale(1);   opacity: 1; }
 }
 
-/* Actions */
-.actions {
+/* ---------- Utility ---------- */
+.hidden {
+  display: none !important;
+}
+
+/* ---------- Modal ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
-  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal {
+  background: #16213e;
+  border: 2px solid #1e4d8c;
+  border-radius: 20px;
+  padding: 40px 36px;
+  text-align: center;
+  max-width: 400px;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.modal h2 {
+  font-size: 1.4rem;
+  color: #e2e8f0;
+}
+
+.modal-hint {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin-bottom: 8px;
+}
+
+.modal .btn {
+  width: 100%;
+  max-width: 280px;
+  padding: 12px 20px;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background: #e67e22;
+}
+
+.btn-primary:hover {
+  background: #cf6d17;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .btn {

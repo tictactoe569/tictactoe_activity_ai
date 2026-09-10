@@ -65,7 +65,52 @@ function checkWinner(board) {
   return null;
 }
 
+// ---------------------------------------------------------------------------
+// Score / Championship  (pure functions, no DOM)
+// ---------------------------------------------------------------------------
+
+/**
+ * Returns the initial score state (both players at zero).
+ * @returns {{ cat: number, dog: number }}
+ */
+function createScoreState() {
+  return { cat: 0, dog: 0 };
+}
+
+/**
+ * Returns a new score object with one point added for the given winner.
+ * @param {{ cat: number, dog: number }} score
+ * @param {string} winner  CAT or DOG (or null/empty for draw — score unchanged)
+ * @returns {{ cat: number, dog: number }} new score object
+ */
+function incrementScore(score, winner) {
+  if (winner === CAT) return { cat: score.cat + 1, dog: score.dog };
+  if (winner === DOG) return { cat: score.cat, dog: score.dog + 1 };
+  return { ...score }; // draw – no change
+}
+
+/**
+ * Returns a fresh zeroed score.
+ * @returns {{ cat: number, dog: number }}
+ */
+function resetScore() {
+  return { cat: 0, dog: 0 };
+}
+
+/**
+ * Returns the player label for display (capitalized).
+ * @param {string} player  CAT or DOG
+ * @returns {string}
+ */
+function getPlayerLabel(player) {
+  return player === CAT ? 'Cat' : 'Dog';
+}
+
 // Allow require() in Node.js (Jest) while remaining a plain script in the browser.
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { WINNING_COMBOS, CAT, DOG, createInitialState, getNextPlayer, applyMove, checkWinner };
+  module.exports = {
+    WINNING_COMBOS, CAT, DOG,
+    createInitialState, getNextPlayer, applyMove, checkWinner,
+    createScoreState, incrementScore, resetScore, getPlayerLabel,
+  };
 }

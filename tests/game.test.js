@@ -310,3 +310,78 @@ describe('checkWinner — result shape', () => {
     });
   });
 });
+
+// ---------------------------------------------------------------------------
+// Score / Championship functions
+// ---------------------------------------------------------------------------
+
+describe('createScoreState', () => {
+  test('starts both players at zero', () => {
+    const s = createScoreState();
+    expect(s.cat).toBe(0);
+    expect(s.dog).toBe(0);
+  });
+});
+
+describe('incrementScore', () => {
+  test('adds a point to cat when winner is CAT', () => {
+    const s = createScoreState();
+    const next = incrementScore(s, CAT);
+    expect(next.cat).toBe(1);
+    expect(next.dog).toBe(0);
+  });
+
+  test('adds a point to dog when winner is DOG', () => {
+    const s = createScoreState();
+    const next = incrementScore(s, DOG);
+    expect(next.cat).toBe(0);
+    expect(next.dog).toBe(1);
+  });
+
+  test('draw (null winner) leaves score unchanged', () => {
+    const s = createScoreState();
+    const next = incrementScore(s, null);
+    expect(next.cat).toBe(0);
+    expect(next.dog).toBe(0);
+  });
+
+  test('draw (undefined winner) leaves score unchanged', () => {
+    const s = createScoreState();
+    const next = incrementScore(s, undefined);
+    expect(next.cat).toBe(0);
+    expect(next.dog).toBe(0);
+  });
+
+  test('does not mutate the original score object', () => {
+    const s = { cat: 2, dog: 1 };
+    incrementScore(s, CAT);
+    expect(s.cat).toBe(2);
+    expect(s.dog).toBe(1);
+  });
+
+  test('accumulates across multiple calls', () => {
+    let s = createScoreState();
+    s = incrementScore(s, CAT);
+    s = incrementScore(s, DOG);
+    s = incrementScore(s, CAT);
+    expect(s).toEqual({ cat: 2, dog: 1 });
+  });
+});
+
+describe('resetScore', () => {
+  test('returns a fresh zeroed score', () => {
+    const s = { cat: 5, dog: 3 };
+    const next = resetScore(s); // argument ignored by design
+    expect(next).toEqual({ cat: 0, dog: 0 });
+  });
+});
+
+describe('getPlayerLabel', () => {
+  test('CAT maps to Cat', () => {
+    expect(getPlayerLabel(CAT)).toBe('Cat');
+  });
+
+  test('DOG maps to Dog', () => {
+    expect(getPlayerLabel(DOG)).toBe('Dog');
+  });
+});
