@@ -2,6 +2,7 @@
 
 // WINNING_COMBOS, checkWinner, getNextPlayer, applyMove, createInitialState
 // are provided by game.js, loaded before this script.
+// CAT ('🐱') and DOG ('🐶') are also provided by game.js.
 
 const cells    = document.querySelectorAll('.cell');
 const status   = document.getElementById('status');
@@ -9,10 +10,16 @@ const restartBtn     = document.getElementById('restart');
 
 let state = createInitialState();
 
+// Maps a player symbol to its CSS class.
+const symbolClass = {
+  [CAT]: 'cat',
+  [DOG]: 'dog',
+};
+
 function render() {
   cells.forEach((cell, i) => {
     cell.textContent = state.board[i];
-    cell.className   = 'cell' + (state.board[i] ? ` ${state.board[i].toLowerCase()}` : '');
+    cell.className   = 'cell' + (state.board[i] ? ` ${symbolClass[state.board[i]]}` : '');
     cell.disabled    = state.board[i] !== '' || state.gameOver;
   });
 }
