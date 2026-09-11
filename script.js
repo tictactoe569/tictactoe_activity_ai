@@ -8,8 +8,16 @@ const EMOJI = { X: '🐱', O: '🐶' };
 const cells    = document.querySelectorAll('.cell');
 const status   = document.getElementById('status');
 const restartBtn     = document.getElementById('restart');
+const scoreXEl = document.getElementById('scoreX');
+const scoreOEl = document.getElementById('scoreO');
 
 let state = createInitialState();
+let scores = { X: 0, O: 0 };
+
+function updateScoreDisplay() {
+  scoreXEl.textContent = scores.X;
+  scoreOEl.textContent = scores.O;
+}
 
 function render() {
   cells.forEach((cell, i) => {
@@ -41,6 +49,8 @@ function handleClick(e) {
   if (result) {
     state.gameOver = true;
     if (result.winner) {
+      scores[result.winner]++;
+      updateScoreDisplay();
       result.combo.forEach(i => cells[i].classList.add('winning'));
       setStatus(`Player ${EMOJI[result.winner]} wins!`, 'win');
     } else {
@@ -66,4 +76,5 @@ restartBtn.addEventListener('click', restartGame);
 
 // Initial render
 render();
+updateScoreDisplay();
 setStatus(`Player ${EMOJI[state.current]}'s turn`);
