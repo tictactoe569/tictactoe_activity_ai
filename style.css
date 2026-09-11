@@ -14,41 +14,53 @@ body {
   color: #eee;
 }
 
-.container {
+/* ── Game wrapper: side-by-side layout ── */
+.game-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 24px;
+}
+
+/* ── Scoreboard panel (left side) ── */
+.scoreboard-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.score-card {
+  background: #16213e;
+  border-radius: 20px;
+  padding: 28px 24px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
-  padding: 32px 24px;
-  background: #16213e;
-  border-radius: 20px;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
-  width: min(420px, 95vw);
+  gap: 16px;
+  min-width: 160px;
 }
 
-h1 {
-  font-size: 2rem;
-  letter-spacing: 2px;
+.score-header {
+  font-size: 1.2rem;
+  font-weight: 700;
   color: #e2e8f0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
-/* Scoreboard */
-.scoreboard {
+.score-row {
   display: flex;
-  gap: 24px;
+  align-items: center;
+  gap: 10px;
   width: 100%;
   justify-content: center;
 }
 
-.score {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #0f3460;
-  border-radius: 12px;
-  padding: 12px 28px;
-  gap: 4px;
-  min-width: 80px;
+.score-icon {
+  font-size: 1.5rem;
 }
 
 .score-label {
@@ -69,6 +81,49 @@ h1 {
 .score-value {
   font-size: 1.8rem;
   font-weight: 700;
+  color: #e2e8f0;
+}
+
+.btn-reset {
+  margin-top: 8px;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: #2d3748;
+  color: #94a3b8;
+  letter-spacing: 0.5px;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn-reset:hover {
+  background: #4a5568;
+  color: #e2e8f0;
+  transform: translateY(-1px);
+}
+
+.btn-reset:active {
+  transform: translateY(0);
+}
+
+/* ── Container (game area, right side) ── */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 32px 24px;
+  background: #16213e;
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+  width: min(420px, 95vw);
+}
+
+h1 {
+  font-size: 2rem;
+  letter-spacing: 2px;
   color: #e2e8f0;
 }
 

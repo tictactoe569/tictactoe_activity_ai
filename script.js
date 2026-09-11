@@ -14,6 +14,14 @@ const restartBtn     = document.getElementById('restart');
 
 let state = createInitialState();
 
+// ── Score state ──
+let scores = { cat: 0, dog: 0 };
+
+function renderScoreboard() {
+  document.getElementById('score-cat').textContent = scores.cat;
+  document.getElementById('score-dog').textContent = scores.dog;
+}
+
 function render() {
   cells.forEach((cell, i) => {
     const mark = state.board[i];
@@ -49,6 +57,10 @@ function handleClick(e) {
     if (result.winner) {
       result.combo.forEach(i => cells[i].classList.add('winning'));
       setStatus(`Player ${result.winner} wins!`, 'win');
+      // Update score
+      if (result.winner === 'X') scores.cat++;
+      else scores.dog++;
+      renderScoreboard();
     } else {
       setStatus("It's a draw!", 'draw');
     }
@@ -67,9 +79,17 @@ function restartGame() {
   setStatus(`Player ${state.current}'s turn`);
 }
 
+// Reset score
+function resetScore() {
+  scores = { cat: 0, dog: 0 };
+  renderScoreboard();
+}
+
 cells.forEach(cell => cell.addEventListener('click', handleClick));
 restartBtn.addEventListener('click', restartGame);
+document.getElementById('reset-score').addEventListener('click', resetScore);
 
 // Initial render
 render();
+renderScoreboard();
 setStatus(`Player ${state.current}'s turn`);
