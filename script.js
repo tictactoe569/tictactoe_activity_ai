@@ -6,14 +6,19 @@
 const cells    = document.querySelectorAll('.cell');
 const status   = document.getElementById('status');
 const restartBtn     = document.getElementById('restart');
+const symbol_X = '🐱';
+const markname_X = "cat";
+const symbol_O = '🐶';
+const markname_O = "dog";
 
 let state = createInitialState();
 
 function render() {
   cells.forEach((cell, i) => {
-    cell.textContent = state.board[i];
-    cell.className   = 'cell' + (state.board[i] ? ` ${state.board[i].toLowerCase()}` : '');
-    cell.disabled    = state.board[i] !== '' || state.gameOver;
+    const mark = state.board[i];
+    cell.textContent = mark === 'X' ? symbol_X : mark === 'O' ? symbol_O : '';
+    cell.className   = 'cell' + (mark ? ` ${mark === 'X' ? markname_X : markname_O}` : '');
+    cell.disabled    = mark !== '' || state.gameOver;
   });
 }
 
@@ -40,7 +45,8 @@ function handleClick(e) {
     state.gameOver = true;
     if (result.winner) {
       result.combo.forEach(i => cells[i].classList.add('winning'));
-      setStatus(`Player ${result.winner} wins!`, 'win');
+      const emoji = result.winner === 'X' ? symbol_X : symbol_O;
+      setStatus(`Player ${emoji} wins!`, 'win');
     } else {
       setStatus("It's a draw!", 'draw');
     }
@@ -50,13 +56,15 @@ function handleClick(e) {
   }
 
   state.current = getNextPlayer(state.current);
-  setStatus(`Player ${state.current}'s turn`);
+  const nextEmoji = state.current === 'X' ? symbol_X : symbol_O;
+  setStatus(`Player ${nextEmoji}'s turn`);
 }
 
 function restartGame() {
   state = createInitialState();
   render();
-  setStatus(`Player ${state.current}'s turn`);
+  const emoji = state.current === 'X' ? symbol_X : symbol_O;
+  setStatus(`Player ${emoji}'s turn`);
 }
 
 cells.forEach(cell => cell.addEventListener('click', handleClick));
@@ -64,4 +72,5 @@ restartBtn.addEventListener('click', restartGame);
 
 // Initial render
 render();
-setStatus(`Player ${state.current}'s turn`);
+const initialEmoji = state.current === 'X' ? symbol_X : symbol_O;
+setStatus(`Player ${initialEmoji}'s turn`);
