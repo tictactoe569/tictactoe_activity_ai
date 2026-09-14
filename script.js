@@ -6,11 +6,16 @@
 const cells    = document.querySelectorAll('.cell');
 const status   = document.getElementById('status');
 const restartBtn     = document.getElementById('restart');
+const scoreXEl  = document.getElementById('score-x');
+const scoreOEl  = document.getElementById('score-o');
+const labelXEl  = document.getElementById('label-x');
+const labelOEl  = document.getElementById('label-o');
 const symbol_X = '🐱';
 const markname_X = "cat";
 const symbol_O = '🐶';
 const markname_O = "dog";
 
+let scores = { X: 0, O: 0 };
 let state = createInitialState();
 
 function render() {
@@ -25,6 +30,16 @@ function render() {
 function setStatus(msg, cls = '') {
   status.textContent = msg;
   status.className   = 'status' + (cls ? ` ${cls}` : '');
+}
+
+function updateScoreDisplay() {
+  scoreXEl.textContent = scores.X;
+  scoreOEl.textContent = scores.O;
+}
+
+function updateScoreLabels() {
+  labelXEl.textContent = `${symbol_X} (cat)`;
+  labelOEl.textContent = `${symbol_O} (dog)`;
 }
 
 function handleClick(e) {
@@ -45,6 +60,8 @@ function handleClick(e) {
     state.gameOver = true;
     if (result.winner) {
       result.combo.forEach(i => cells[i].classList.add('winning'));
+      scores[result.winner]++;
+      updateScoreDisplay();
       const emoji = result.winner === 'X' ? symbol_X : symbol_O;
       setStatus(`Player ${emoji} wins!`, 'win');
     } else {
@@ -72,5 +89,7 @@ restartBtn.addEventListener('click', restartGame);
 
 // Initial render
 render();
+updateScoreLabels();
+updateScoreDisplay();
 const initialEmoji = state.current === 'X' ? symbol_X : symbol_O;
 setStatus(`Player ${initialEmoji}'s turn`);
