@@ -42,6 +42,36 @@ function applyMove(board, index, player) {
 }
 
 /**
+ * Returns a new board with the cell at `index` cleared, or null if invalid.
+ * @param {string[]} board
+ * @param {number}   index  0-8
+ * @returns {string[]|null}
+ */
+function clearCell(board, index) {
+  if (index < 0 || index > 8) return null;
+  if (board[index] === '')    return null;
+  const next = board.slice();
+  next[index] = '';
+  return next;
+}
+
+/**
+ * Returns a new state with the last move undone, or null if invalid.
+ * @param {{ board: string[], current: string, gameOver: boolean }} state
+ * @param {number} lastMoveIndex  0-8
+ * @returns {{ board: string[], current: string, gameOver: boolean }|null}
+ */
+function undoMove(state, lastMoveIndex) {
+  const newBoard = clearCell(state.board, lastMoveIndex);
+  if (!newBoard) return null;
+  return {
+    board: newBoard,
+    current: getNextPlayer(state.current),
+    gameOver: false,
+  };
+}
+
+/**
  * Checks the board for a winner or draw.
  * @param {string[]} board
  * @returns {{ winner: string, combo: number[] }|{ winner: null, combo: [] }|null}
@@ -62,5 +92,5 @@ function checkWinner(board) {
 
 // Allow require() in Node.js (Jest) while remaining a plain script in the browser.
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { WINNING_COMBOS, createInitialState, getNextPlayer, applyMove, checkWinner };
+  module.exports = { WINNING_COMBOS, createInitialState, getNextPlayer, applyMove, clearCell, undoMove, checkWinner };
 }
