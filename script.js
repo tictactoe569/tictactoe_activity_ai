@@ -11,6 +11,17 @@ let state = createInitialState();
 
 const SYMBOL_MAP = { X: '🐱', O: '🐶' };
 
+// Scoreboard
+let scoreX = 0;
+let scoreO = 0;
+const scoreXEl = document.getElementById('scoreX');
+const scoreOEl = document.getElementById('scoreO');
+
+function updateScoreboard() {
+  scoreXEl.textContent = scoreX;
+  scoreOEl.textContent = scoreO;
+}
+
 function render() {
   cells.forEach((cell, i) => {
     cell.textContent = SYMBOL_MAP[state.board[i]] || state.board[i];
@@ -43,6 +54,13 @@ function handleClick(e) {
     if (result.winner) {
       result.combo.forEach(i => cells[i].classList.add('winning'));
       setStatus(`${SYMBOL_MAP[result.winner]} wins!`, 'win');
+      // Update scoreboard
+      if (result.winner === 'X') {
+        scoreX++;
+      } else {
+        scoreO++;
+      }
+      updateScoreboard();
     } else {
       setStatus("It's a draw!", 'draw');
     }
