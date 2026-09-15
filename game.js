@@ -60,7 +60,28 @@ function checkWinner(board) {
   return null;
 }
 
+/**
+ * Creates a fresh score object.
+ * @returns {{ '🐱': number, '🐶': number }}
+ */
+function createScore() {
+  return { '🐱': 0, '🐶': 0 };
+}
+
+/**
+ * Returns a new score object with the winner incremented.
+ * @param {{ '🐱': number, '🐶': number }} score
+ * @param {string|null} winner
+ * @returns {{ '🐱': number, '🐶': number }}
+ */
+function incrementScore(score, winner) {
+  if (winner === '🐱' || winner === '🐶') {
+    return { ...score, [winner]: score[winner] + 1 };
+  }
+  return { ...score };
+}
+
 // Allow require() in Node.js (Jest) while remaining a plain script in the browser.
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { WINNING_COMBOS, createInitialState, getNextPlayer, applyMove, checkWinner };
+  module.exports = { WINNING_COMBOS, createInitialState, getNextPlayer, applyMove, checkWinner, createScore, incrementScore };
 }
