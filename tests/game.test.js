@@ -305,3 +305,85 @@ describe('checkWinner — result shape', () => {
     });
   });
 });
+
+// ---------------------------------------------------------------------------
+// getInitialScores
+// ---------------------------------------------------------------------------
+
+describe('getInitialScores', () => {
+  test('returns X:0 and O:0', () => {
+    const s = getInitialScores();
+    expect(s.X).toBe(0);
+    expect(s.O).toBe(0);
+  });
+
+  test('each call returns a distinct object', () => {
+    const s1 = getInitialScores();
+    const s2 = getInitialScores();
+    expect(s1).not.toBe(s2);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// addScore
+// ---------------------------------------------------------------------------
+
+describe('addScore', () => {
+  test('increments X when winner is X', () => {
+    const s = { X: 0, O: 0 };
+    const next = addScore(s, 'X');
+    expect(next.X).toBe(1);
+    expect(next.O).toBe(0);
+  });
+
+  test('increments O when winner is O', () => {
+    const s = { X: 0, O: 0 };
+    const next = addScore(s, 'O');
+    expect(next.X).toBe(0);
+    expect(next.O).toBe(1);
+  });
+
+  test('does not mutate the original scores object', () => {
+    const s = { X: 0, O: 0 };
+    addScore(s, 'X');
+    expect(s.X).toBe(0);
+    expect(s.O).toBe(0);
+  });
+
+  test('accumulates multiple wins', () => {
+    let s = { X: 0, O: 0 };
+    s = addScore(s, 'X');
+    s = addScore(s, 'X');
+    s = addScore(s, 'O');
+    expect(s.X).toBe(2);
+    expect(s.O).toBe(1);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// createInitialState with scores
+// ---------------------------------------------------------------------------
+
+describe('createInitialState with scores', () => {
+  test('preserves passed scores', () => {
+    const scores = { X: 3, O: 5 };
+    const state = createInitialState(scores);
+    expect(state.scores.X).toBe(3);
+    expect(state.scores.O).toBe(5);
+  });
+
+  test('board is empty when scores are passed', () => {
+    const state = createInitialState({ X: 1, O: 2 });
+    expect(state.board.every(c => c === '')).toBe(true);
+  });
+
+  test('current player is X when scores are passed', () => {
+    const state = createInitialState({ X: 1, O: 2 });
+    expect(state.current).toBe('X');
+  });
+
+  test('gameOver is false when scores are passed', () => {
+    const state = createInitialState({ X: 1, O: 2 });
+    expect(state.gameOver).toBe(false);
+  });
+});

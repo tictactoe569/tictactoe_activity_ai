@@ -7,13 +7,32 @@ const WINNING_COMBOS = [
 ];
 
 /**
- * Returns the initial game state.
+ * Returns the initial scores.
  */
-function createInitialState() {
+function getInitialScores() {
+  return { X: 0, O: 0 };
+}
+
+/**
+ * Returns a new scores object with the winner incremented.
+ * @param {{ X: number, O: number }} scores
+ * @param {'X'|'O'} winner
+ * @returns {{ X: number, O: number }}
+ */
+function addScore(scores, winner) {
+  return { X: scores.X + (winner === 'X' ? 1 : 0), O: scores.O + (winner === 'O' ? 1 : 0) };
+}
+
+/**
+ * Returns the initial game state, optionally with preserved scores.
+ * @param {{ X: number, O: number }} [scores]
+ */
+function createInitialState(scores) {
   return {
     board:   Array(9).fill(''),
     current: 'X',
     gameOver: false,
+    scores:  scores || getInitialScores(),
   };
 }
 
@@ -62,5 +81,5 @@ function checkWinner(board) {
 
 // Allow require() in Node.js (Jest) while remaining a plain script in the browser.
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { WINNING_COMBOS, createInitialState, getNextPlayer, applyMove, checkWinner };
+  module.exports = { WINNING_COMBOS, createInitialState, getNextPlayer, applyMove, checkWinner, getInitialScores, addScore };
 }

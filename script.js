@@ -6,8 +6,17 @@
 const cells    = document.querySelectorAll('.cell');
 const status   = document.getElementById('status');
 const restartBtn     = document.getElementById('restart');
+const scoreCat = document.getElementById('score-cat');
+const scoreDog = document.getElementById('score-dog');
 
-let state = createInitialState();
+// Scores persist across restarts (only reset on page reload)
+let scores = getInitialScores();
+let state = createInitialState(scores);
+
+function renderScoreboard() {
+  scoreCat.textContent = scores.X;
+  scoreDog.textContent = scores.O;
+}
 
 function render() {
   cells.forEach((cell, i) => {
@@ -40,6 +49,10 @@ function handleClick(e) {
   if (result) {
     state.gameOver = true;
     if (result.winner) {
+      // Update scores
+      scores = addScore(scores, result.winner);
+      renderScoreboard();
+
       const emoji = result.winner === 'X' ? '🐱' : '🐶';
       result.combo.forEach(i => cells[i].classList.add('winning'));
       setStatus(`Player ${emoji} wins!`, 'win');
@@ -57,8 +70,9 @@ function handleClick(e) {
 }
 
 function restartGame() {
-  state = createInitialState();
+  state = createInitialState(scores);
   render();
+  renderScoreboard();
   setStatus(`Player 🐱's turn`);
 }
 
@@ -67,4 +81,5 @@ restartBtn.addEventListener('click', restartGame);
 
 // Initial render
 render();
+renderScoreboard();
 setStatus(`Player 🐱's turn`);
