@@ -5,25 +5,21 @@
 **Hard rule**: AI agents must not edit this file and must not draft paste-ready content for it.
 
 ## R — The Problem
-_Why is this change necessary?_
+Era necessario mudar os caracteres de jogador por emojis.
 
 ## E — Examples
-_One happy path, one edge case._
 
-- **Input**: ...
-  **Output**: ...
-
-- **Input**: ...
-  **Output**: ...
+- **Input**: Click na celula na vez do jogador com emoji de cachorro
+  **Output**: Emoji de cachorro na celula
 
 ## A — Approach
-_High-level strategy._
+A IA fez a leitura assistida do codigo e alterou o script.js ao inves do game.js para fazer o track do caractere de "X" ou "O" e trocar pelos emojis.
 
 ## C — Code
-_Interesting patterns or trade-offs._
+Ao inves de alterar o game.js, a IA alterou o script.js, de maneira conservadora para que nao fosse necessario alterar tambem o script de teste
 
 ## T — Tests
-_How are we verifying this?_
+Usando o script de teste previamente feito e jogando manualmente
 
 ## O — Optimization
-_Complexity checks (sometimes don't apply)._
+Alterar todos os arquivos para receber os emojis ao inves dos caracteres, dessa forma nao seria necessario realizar o track da celula.
