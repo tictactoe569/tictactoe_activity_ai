@@ -305,3 +305,63 @@ describe('checkWinner — result shape', () => {
     });
   });
 });
+
+// ---------------------------------------------------------------------------
+// createScoreState
+// ---------------------------------------------------------------------------
+
+describe('createScoreState', () => {
+  test('returns zero for both players', () => {
+    const s = createScoreState();
+    expect(s.cat).toBe(0);
+    expect(s.dog).toBe(0);
+  });
+
+  test('each call returns a distinct object', () => {
+    const s1 = createScoreState();
+    const s2 = createScoreState();
+    expect(s1).not.toBe(s2);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// updateScore
+// ---------------------------------------------------------------------------
+
+describe('updateScore', () => {
+  test('increments cat when CAT wins', () => {
+    const s = createScoreState();
+    const next = updateScore(s, CAT);
+    expect(next.cat).toBe(1);
+    expect(next.dog).toBe(0);
+  });
+
+  test('increments dog when DOG wins', () => {
+    const s = createScoreState();
+    const next = updateScore(s, DOG);
+    expect(next.cat).toBe(0);
+    expect(next.dog).toBe(1);
+  });
+
+  test('does not mutate the original score object', () => {
+    const s = createScoreState();
+    updateScore(s, CAT);
+    expect(s.cat).toBe(0);
+  });
+
+  test('draw does not change scores', () => {
+    const s = { cat: 3, dog: 5 };
+    const next = updateScore(s, null);
+    expect(next.cat).toBe(3);
+    expect(next.dog).toBe(5);
+  });
+
+  test('accumulates multiple wins', () => {
+    let s = createScoreState();
+    s = updateScore(s, CAT);
+    s = updateScore(s, CAT);
+    s = updateScore(s, DOG);
+    expect(s.cat).toBe(2);
+    expect(s.dog).toBe(1);
+  });
+});

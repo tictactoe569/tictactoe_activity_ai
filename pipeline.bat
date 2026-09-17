@@ -24,7 +24,7 @@ if /I "%ARG%"=="ON" (
     powershell -Command "Expand-Archive -Path '.__tools__\enabled.zip' -DestinationPath '.__tools__\_tmp_enabled' -Force; Copy-Item -Path '.__tools__\_tmp_enabled\enabled\*' -Destination '.github\' -Recurse -Force; Remove-Item -Path '.__tools__\_tmp_enabled' -Recurse -Force"
 ) else if /I "%ARG%"=="OFF" (
     echo Disabling: pipeline OFF — .github is now empty
-    :: .github already exists (created above), leave it empty
+    REM .github already exists (created above), leave it empty
 ) else (
     echo Invalid argument. Please use 'ON' or 'OFF'.
     exit /b 1

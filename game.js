@@ -63,7 +63,26 @@ function checkWinner(board) {
   return null;
 }
 
+/**
+ * Returns the initial score state.
+ */
+function createScoreState() {
+  return { cat: 0, dog: 0 };
+}
+
+/**
+ * Returns a new score state with the winner's count incremented.
+ * @param {{ cat: number, dog: number }} score
+ * @param {string|null} winner  CAT, DOG, or null (draw)
+ * @returns {{ cat: number, dog: number }}
+ */
+function updateScore(score, winner) {
+  if (winner === CAT) return { cat: score.cat + 1, dog: score.dog };
+  if (winner === DOG) return { cat: score.cat, dog: score.dog + 1 };
+  return { ...score };
+}
+
 // Allow require() in Node.js (Jest) while remaining a plain script in the browser.
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { CAT, DOG, WINNING_COMBOS, createInitialState, getNextPlayer, applyMove, checkWinner };
+  module.exports = { CAT, DOG, WINNING_COMBOS, createInitialState, getNextPlayer, applyMove, checkWinner, createScoreState, updateScore };
 }
